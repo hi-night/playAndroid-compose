@@ -1,26 +1,31 @@
 package com.example.playandroid.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.playandroid.common.data.bean.WebData
+import com.example.playandroid.ui.page.home.HomePage
 import com.example.playandroid.ui.page.home.RouteName
 import com.example.playandroid.ui.page.login.LoginPage
+import com.example.playandroid.ui.page.webview.WebViewPage
 import com.example.playandroid.ui.widgets.MainBottomBar
+import com.example.playandroid.utils.fromJson
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import kotlin.math.log
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun AppScaffold() {
     val navController = rememberNavController()
@@ -60,6 +65,15 @@ fun AppScaffold() {
                 composable(RouteName.LOGIN) {
                     LoginPage(navController, scaffoldState)
                 }
+
+                composable(route = RouteName.WEB_VIEW + "/{webData}",
+                    arguments = listOf(navArgument("webData") { type = NavType.StringType })
+                ) {
+                    val args = it.arguments?.getString("webData")?.fromJson<WebData>()
+                    if (args != null) {
+                        WebViewPage(webData = args, navCtrl = navController)
+                    }
+                }
             }
         }
     )
@@ -70,15 +84,7 @@ fun MinePage(navController: NavHostController, scaffoldState: ScaffoldState) {
     Column {
         Text(text = "我的")
         Button(onClick = {
-//            navCtrl.navigate(item.routeName) {
-//                popUpTo(navCtrl.graph.findStartDestination().id) {
-//                    saveState = true
-//                }
-//                launchSingleTop = true
-//                restoreState = true
-//            }
             navController.navigate(RouteName.LOGIN){
-                Log.d("11111", "MinePage: " + navController.graph.findStartDestination().id)
                 popUpTo(navController.graph.findStartDestination().id)
             }
 
@@ -86,9 +92,4 @@ fun MinePage(navController: NavHostController, scaffoldState: ScaffoldState) {
             Text("登录")
         }
     }
-}
-
-@Composable
-fun HomePage(navController: NavHostController, scaffoldState: ScaffoldState) {
-    Text(text = "首页")
 }

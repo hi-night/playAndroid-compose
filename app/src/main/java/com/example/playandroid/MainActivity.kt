@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.playandroid.ui.AppScaffold
-import com.example.playandroid.ui.theme.PlayAndroidTheme
+import com.example.playandroid.ui.theme.Theme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity(), CoroutineScope by CoroutineScope(Dispa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PlayAndroidTheme {
+            Theme {
                 // 是否进入闪屏界面
                 var isSplash by remember { mutableStateOf(true) }
 
