@@ -25,10 +25,9 @@ fun LabelTextButton(
         fontSize = H6,
         color = white,
         modifier = modifier
-            .height(25.dp)
             .clip(shape = RoundedCornerShape(25.dp / 2))
             .background(MaterialTheme.colors.primary)
-            .padding(vertical = 4.dp, horizontal = 8.dp),
-        textAlign = TextAlign.Center
+            .padding(horizontal = 8.dp, vertical = 2.dp),
+        textAlign = TextAlign.Center,
     )
 }

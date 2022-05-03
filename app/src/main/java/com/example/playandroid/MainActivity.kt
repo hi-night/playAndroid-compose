@@ -24,7 +24,6 @@ import kotlinx.coroutines.*
 @AndroidEntryPoint
 class MainActivity : ComponentActivity(), CoroutineScope by CoroutineScope(Dispatchers.Default) {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

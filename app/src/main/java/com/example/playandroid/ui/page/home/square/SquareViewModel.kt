@@ -11,10 +11,8 @@ import androidx.paging.cachedIn
 import com.example.playandroid.common.data.bean.Article
 import com.example.playandroid.common.data.http.HttpService
 import com.example.playandroid.common.paging.simplePager
-import kotlinx.coroutines.flow.Flow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import java.lang.NullPointerException
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,10 +21,6 @@ class SquareViewModel @Inject constructor(
 ) : ViewModel() {
     private val pager by lazy {
         simplePager {
-            if (it >= 3) {
-                throw NullPointerException("")
-            }
-            delay(2000)
             service.getSquareData(it)
         }.cachedIn(viewModelScope)
     }

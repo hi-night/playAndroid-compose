@@ -8,19 +8,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.playandroid.common.data.bean.WebData
 import com.example.playandroid.ui.page.home.HomePage
 import com.example.playandroid.ui.page.home.RouteName
 import com.example.playandroid.ui.page.login.LoginPage
-import com.example.playandroid.ui.page.webview.WebViewPage
 import com.example.playandroid.ui.widgets.MainBottomBar
-import com.example.playandroid.utils.fromJson
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -65,15 +60,6 @@ fun AppScaffold() {
                 composable(RouteName.LOGIN) {
                     LoginPage(navController, scaffoldState)
                 }
-
-                composable(route = RouteName.WEB_VIEW + "/{webData}",
-                    arguments = listOf(navArgument("webData") { type = NavType.StringType })
-                ) {
-                    val args = it.arguments?.getString("webData")?.fromJson<WebData>()
-                    if (args != null) {
-                        WebViewPage(webData = args, navCtrl = navController)
-                    }
-                }
             }
         }
     )
@@ -84,7 +70,7 @@ fun MinePage(navController: NavHostController, scaffoldState: ScaffoldState) {
     Column {
         Text(text = "我的")
         Button(onClick = {
-            navController.navigate(RouteName.LOGIN){
+            navController.navigate(RouteName.LOGIN) {
                 popUpTo(navController.graph.findStartDestination().id)
             }
 

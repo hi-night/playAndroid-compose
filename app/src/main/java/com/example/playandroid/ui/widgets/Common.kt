@@ -93,16 +93,17 @@ fun MainBottomBar(navCtrl: NavHostController) {
     val bottomList = listOf(BottomNavRoute.Home, BottomNavRoute.ProFile)
     val currentDestination = navCtrl.currentBackStackEntry?.destination
 
-    BottomNavigation {
+    BottomNavigation(
+        backgroundColor = Color.White
+    ) {
         bottomList.forEach { item ->
             BottomNavigationItem(
                 icon = {
-                    Icon(imageVector = BottomNavRoute.Home.icon, contentDescription = null)
-                },
-                label = {
-                    Text(text = stringResource(id = item.name))
+                    Icon(imageVector = item.icon, contentDescription = null)
                 },
                 selected = currentDestination?.hierarchy?.any { it.route == item.routeName } == true,
+                selectedContentColor = MaterialTheme.colors.primary,
+                unselectedContentColor = Color.Gray,
                 onClick = {
                     if (currentDestination?.route != item.routeName) {
                         navCtrl.navigate(item.routeName) {
