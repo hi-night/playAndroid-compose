@@ -3,6 +3,7 @@ package com.example.playandroid.ui.page.home.square
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -16,7 +17,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemsIndexed
 import com.example.playandroid.common.data.bean.Article
 import com.example.playandroid.common.data.bean.WebData
 import com.example.playandroid.ui.page.home.RouteName
@@ -40,7 +40,7 @@ fun SquarePage(
     val listState = if (squareData.itemCount > 0) viewState.listState else LazyListState()
 
     RefreshList(squareData, listState = listState) {
-        itemsIndexed(squareData) { _, item ->
+        itemsIndexed(squareData.itemSnapshotList) { _, item ->
             MultiStateItemView(
                 data = item!!,
                 onSelected = {
